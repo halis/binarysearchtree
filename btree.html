@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+	<title>Binary Search Tree</title>
+	<script type="text/javascript" src="./tree.js"></script>
+</head>
+<body>
+	<script type='text/javascript'>
+		var tree, node, temp;
+
+		node = new Node(8);
+		tree = new Tree(node); // node serves as the root node
+
+		node = new Node(8);
+		tree.add(node); // increments counter on the node with value 8
+
+		node = new Node(3);
+		tree.add(node); // becomes the left child of 8
+
+		node = new Node(1);
+		tree.add(node); // becomes the left child of 3
+
+		node = new Node(6);
+		tree.add(node); // becomes the right child of 3
+
+		node = new Node(4);
+		tree.add(node); // becomes the left child of 6
+
+		node = new Node(7);
+		tree.add(node); // becomes the right child of 6
+
+		node = new Node(10);
+		tree.add(node); // becomes the right child of 8
+
+		node = new Node(14);
+		tree.add(node); // becomes the right child of 10
+
+		node = new Node(13);
+		tree.add(node); // becomes the left child of 14
+
+		tree.depth(); // 4
+
+		console.log(tree.root); 	 // Node {value: 8, left: Node, right: Node, count: 2, parent: null…}
+		console.log(tree.root.left); // Node {value: 3, left: Node, right: Node, count: 1, parent: Node…}
+		console.log(tree.root.right); 	 // Node {value: 10, left: null, right: Node, count: 1, parent: Node…}
+		/* tree.root.right expanded view
+			{
+				count: 1
+				depth: 2
+				isLeftChild: false
+				isRightChild: true
+				left: null
+				parent: Node
+				right: Node
+				root: Node
+				value: 10
+			}
+		*/
+
+		tree.isRoot(tree.root); 	 // true
+		tree.isRoot(tree.root.left); // false
+
+		tree.search(14) // Node {value: 14, left: Node, right: null, count: 1, parent: Node…}
+		tree.search(8)  // Node {value: 8, left: Node, right: Node, count: 2, parent: null…}
+		tree.search(55) // null
+	</script>
+</body>
+</html>
