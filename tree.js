@@ -69,6 +69,67 @@ function Tree(root) {
 		}
 	};
 
+	this.removeBranch = function(value) {
+		var node = this.search(value);
+		if (node == null) return false;
+
+		if (this.isRoot(node)) {
+			this.root = null;
+			return true;
+		}
+
+		if (node.isLeftChild) {
+			node.parent.left = null;
+		} else if (node.isRightChild) {
+			node.parent.right = null;
+		}
+
+		return true;
+	};
+
+	this.findLargestNodeInSubtree = function(node) {
+		var ptr = node;
+		if (node == null) return null;
+
+		while (ptr.right != null) {
+			ptr = ptr.right;
+		}
+
+		return ptr;
+	}
+
+	this.removeNode = function(value) {
+		var node = this.search(value), fn, replaceChild, replaceWith, value;
+		if (node == null) return false;
+
+		if (node.left == null && node.right == null) 
+			replaceWith = null;
+		else if (node.left == null && node.right != null)
+			replaceWith = node.right;
+		else if (node.left != null && node.right == null)
+			replaceWith = node.left;
+		else {
+			replaceWith = this.findLargestNodeInSubtree(node.left);
+			value = replaceWith.value;
+			this.removeNode.bind(this)(replaceWith.value);
+			node.value = value;
+
+			return true;
+		}
+
+		if (this.isRoot(node)) {
+			this.root = replaceWith;
+			return true;
+		} else {
+			if (node.isLeftChild)replaceChild = 'left';
+			else if (node.isRightChild) replaceChild = 'right';
+			else return false;
+		}
+
+		node.parent[replaceChild] = replaceWith;
+		return true;
+	};
+
 	function traverse(depths, ptr, depth) {
 		if (depths.indexOf(depth) === -1) depths.push(depth);
 		if (ptr.left != null) traverse(depths, ptr.left, depth + 1);
