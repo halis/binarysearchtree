@@ -1,5 +1,5 @@
 # binarysearchtree
-A no dependency implementation of a b-tree in JavaScript.
+A no dependency implementation of a binary search tree in JavaScript.
 
 
 ###### The code below will result in a binary search tree that looks like the following image:
